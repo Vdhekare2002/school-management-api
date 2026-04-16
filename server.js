@@ -1,34 +1,3 @@
-/*const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-
-dotenv.config();
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-const schoolRoutes = require("./routes/schoolRoutes");
-
-app.use("/", schoolRoutes);
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT} 🚀`);
-});
-*/
-
-/*const db = require("./config/db");
-
-db.query("SELECT 1", (err, result) => {
-  if (err) {
-    console.log("❌ Test Query Failed:", err);
-  } else {
-    console.log("✅ DB Test Success");
-  }
-});*/
-
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -39,9 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Root route FIRST (for testing)
+app.get("/", (req, res) => {
+  res.send("API WORKING ✅");
+});
+
 const schoolRoutes = require("./routes/schoolRoutes");
 
-// ✅ ADD THIS BLOCK HERE (TEMPORARY)
+// ❗ TEMPORARY (you can remove after submission)
 const db = require("./config/db");
 
 db.query(`
@@ -57,10 +31,12 @@ CREATE TABLE IF NOT EXISTS schools (
   else console.log("✅ Table created");
 });
 
+// ✅ Routes
 app.use("/", schoolRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+// 🔥 VERY IMPORTANT FIX
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT} 🚀`);
 });
